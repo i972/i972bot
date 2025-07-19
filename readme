@@ -1,0 +1,26 @@
+0. venv 설정
+    0.1 가상 환경을 설정하고 활성화합니다.
+    0.2 Linux/Mac: python3 -m venv .venv
+    0.3가상 환경 활성화: 
+        - Linux/Mac: source .venv/bin/activate
+    0.4 가상 환경 비활성화: deactivate
+
+1. 필요한 라이브러리
+    pyTelegramBotAPI 4.27.0
+      - https://pypi.org/project/pyTelegramBotAPI/#getting-started
+      - 텔레그램 봇 라이브러리
+    PublicDataReader 1.1.1.post2
+      - 한국은행 경제통계시스템 (ECOS) 를 사용하기 위한 라이브러리
+
+2. 라이브러리 설치
+    pip install -r requirements.txt
+
+3. 파일 구성
+    3.1 config.py
+        - 이 파일에는 봇 토큰과 채널 ID를 설정합니다. 
+    3.2 main.py
+        - 이 파일은 봇의 메인 로직을 포함합니다.
+    3.3 requirements.txt
+        - 이 파일에는 필요한 라이브러리 목록이 포함됩니다.
+        - pyTelegramBotAPI==4.27.0
+        - PublicDataReader
