@@ -9,7 +9,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from telebot.apihelper import ApiException
 
 # ⭐ 새로 만든 모듈을 임포트합니다. ⭐
-import market_data # market_data.py 파일을 임포트
+import market_func
 
 # pyTelegramBotAPI 라이브러리의 TeleBot 클래스를 사용하여 새로운 텔레그램 봇 객체를 생성합니다.
 bot = TeleBot(token=API_TOKEN)
@@ -45,16 +45,16 @@ def send_market(message):
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call):
     try:
-        if call.data == '1':
+        if call.data == '1': # 환전고시환율을 선택했을 때
             bot.answer_callback_query(call.id, "환전고시환율을 가져오는 중입니다...")
             # market_data 모듈의 함수를 호출하여 데이터를 가져옵니다.
-            exchange_rate_data = market_data.get_exchange_rate()
-            # 가져온 데이터를 사용자에게 보냅니다.
-            bot.send_message(call.message.chat.id, exchange_rate_data)  
+            for currency_code in ['USD', 'JPY', 'CNY', 'EUR']:
+                exchange_rate_data = market_func.get_exchange_rate(currency_code)  # 예시로 USD 환율을 가져옵니다.
+                bot.send_message(call.message.chat.id, exchange_rate_data) # 가져온 데이터를 사용자에게 보냅니다.
         elif call.data == '2':
             bot.answer_callback_query(call.id, "달러인덱를 가져오는 중입니다.")
             # market_data 모듈의 함수를 호출하여 데이터를 가져옵니다.
-            dollar_index_data = market_data.get_dollar_index()
+            dollar_index_data = market_func.get_dollar_index()
             # 가져온 데이터를 사용자에게 보냅니다. 
             bot.send_message(call.message.chat.id, dollar_index_data)                             
         else:
