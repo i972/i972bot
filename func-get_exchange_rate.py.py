@@ -26,7 +26,7 @@ def get_exchange_rate(currency_code):
 
     exday_info = soup.find('p', class_='no_exday').get_text().replace('\n', '').replace('전일대비', '')
 
-    return f"{country:8} ({currency_code:3}),   {rate_info:10}, {change_sign:5} {exday_info}"
+    return f"{country:8} ({currency_code:3}) {rate_info:12} 전일대비 {change_sign:5} {exday_info}"
     # print(country, currency_code, "실시간 환율", rate_info, '｜ 전일대비', change_sign, exday_info)
 
 # USD, EUR, JPY, CNY 환율 확인하기

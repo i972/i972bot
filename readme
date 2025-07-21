@@ -13,7 +13,7 @@
       - 한국은행 경제통계시스템 (ECOS) 를 사용하기 위한 라이브러리
 
 2. 라이브러리 설치
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
 
 3. 파일 구성
     3.1 config.py
