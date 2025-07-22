@@ -6,5 +6,9 @@
 # requests==2.31.0 # Python 3.7 버전 이상에서는 requests가 pre-installed 되어 있을 수 있습니다.
 pyTelegramBotAPI==4.27.0
 beautifulsoup4==4.12.2
+# lxml은 HTML/XML 파싱을 위한 라이브러리입니다.
+# html5lib는 HTML5 문서를 파싱하기 위한 라이브러리입니다.
+# pandas는 데이터 분석을 위한 라이브러리입니다.
 pandas==2.3.1
-
+html5lib==1.1   # Pandas의 read_html 함수가 html5lib, lxml 를 필요로 합니다.
+lxml==6.0.0

@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 import requests
 
 # ⭐ 새로 만든 모듈을 임포트합니다. ⭐
-import market_func
+import marketFunc
 
 # pyTelegramBotAPI 라이브러리의 TeleBot 클래스를 사용하여 새로운 텔레그램 봇 객체를 생성합니다.
 bot = TeleBot(token=API_TOKEN)
@@ -31,7 +31,8 @@ def send_welcome(message):
 # 버튼을 클릭하면 각각의 콜백 데이터가 전송됩니다.
 # 이 버튼들은 사용자가 봇과 상호작용할 수 있는 인터페이스
 keyboard = [ # 한줄에 2개의 버튼을 배치 합니다.
-    [InlineKeyboardButton("환전고시환율", callback_data='1'), InlineKeyboardButton("달러인덱스", callback_data='2')]
+    [InlineKeyboardButton("환전고시환율", callback_data='1'), InlineKeyboardButton("달러인덱스", callback_data='2')],
+    [InlineKeyboardButton("국내(국제)유가", callback_data='3'), InlineKeyboardButton("귀금속", callback_data='4')]
 ]
 inline_keyboard = InlineKeyboardMarkup(keyboard =keyboard)
 
@@ -52,16 +53,17 @@ def handle_query(call):
             bot.answer_callback_query(call.id, "환전고시환율을 가져오는 중입니다...")
             # market_data 모듈의 함수를 호출하여 데이터를 가져옵니다.
             for currency_code in ['USD', 'JPY', 'CNY', 'EUR']:
-                exchange_rate_data = market_func.get_exchange_rate(currency_code)  # 예시로 USD 환율을 가져옵니다.
+                exchange_rate_data = marketFunc.get_exchange_rate(currency_code)  # 예시로 USD 환율을 가져옵니다.
                 bot.send_message(call.message.chat.id, exchange_rate_data) # 가져온 데이터를 사용자에게 보냅니다.
                 print(exchange_rate_data)  # 콘솔에 출력합니다. 동작을 확인하기 위한 디버깅용입니다.
+            print()
         elif call.data == '2':
             bot.answer_callback_query(call.id, "달러인덱를 가져오는 중입니다.")
             # market_data 모듈의 함수를 호출하여 데이터를 가져옵니다.
-            dollar_index_data = market_func.get_dollar_index()
+            dollar_index_data = marketFunc.get_dollar_index()
             # 가져온 데이터를 사용자에게 보냅니다. 
             bot.send_message(call.message.chat.id, dollar_index_data)
-            print(dollar_index_data)  # 콘솔에 출력합니다. 동작을 확인하기 위한 디버깅용입니다.                          
+            print(dollar_index_data, '\n')  # 콘솔에 출력합니다. 동작을 확인하기 위한 디버깅용입니다.                          
         else:
             bot.answer_callback_query(call.id, "알 수 없는 선택입니다.")
     except ApiException as e:
@@ -90,7 +92,7 @@ def echo_all(message):
 # infinity_polling은 연결 오류 발생 시 자동으로 재시작을 시도합니다.
 # timeout과 long_polling_timeout을 설정하여 봇의 응답성을 조절합니다
 if __name__ == '__main__':
-    print("텔레그램 봇을 시작합니다...")
+    print("텔레그램 봇을 시작합니다...\n")
     try:
         # infinity_polling은 연결 오류 발생 시 자동으로 재시작을 시도합니다.
         bot.infinity_polling(timeout=10, long_polling_timeout=5)
